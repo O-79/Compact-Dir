@@ -6,4 +6,5 @@
 
 ### Run in CLI:
 <code>python encrypt.py</code> (encrypt)
+
 <code>python decrypt.py</code> (decrypt)
