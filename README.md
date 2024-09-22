@@ -8,3 +8,6 @@
 <code>python encryption.py</code> (encrypt)
 
 <code>python decryption.py</code> (decrypt)
+
+### [Demo](resources/DEMO.mp4)
+- Demonstration with ~100 MB worth of files and nested directories
