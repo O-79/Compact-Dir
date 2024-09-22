@@ -40,7 +40,7 @@ root.withdraw()
 encrypted_file = filedialog.askopenfilename(filetypes=[("DIR files", "*.dir")])
 
 if encrypted_file:
-    key = input()
+    key = input(':')
     try:
         decrypt_files(encrypted_file, key)
     except ValueError as e:
