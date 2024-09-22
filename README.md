@@ -5,6 +5,6 @@
 - Decrypt a concatenated byte file into original files using custom key
 
 ### Run in CLI:
-<code>python encrypt.py</code> (encrypt)
+<code>python encryption.py</code> (encrypt)
 
-<code>python decrypt.py</code> (decrypt)
+<code>python decryption.py</code> (decrypt)
