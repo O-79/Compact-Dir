@@ -9,5 +9,5 @@
 
 <code>python decryption.py</code> <em>choose byte file -> provide key -> decrypt</em>
 
-### [Demo (OLD)](resources/DEMO.mp4)
-- Demonstration with ~100 MB worth of files and nested directories and old encryption
+### [Demo (OLD ENCRYPTION)](resources/DEMO.mp4)
+- Demonstration with ~100 MB worth of files and nested directories
