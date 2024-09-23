@@ -17,21 +17,34 @@ def encrypt_files(directory):
                 file_info.append((relative_path, len(file_data)))
                 encrypted_data += file_data
     
-    key = secrets.token_bytes(16)
+    num_files = len(file_info)
+    key = secrets.token_bytes(16 * num_files)
     
-    output_file = os.path.join(directory, f'{datetime.now().strftime('%M%Y%m%d%H%M%S')}.dir')
+    key_positions = []
+    available_positions = list(range(len(encrypted_data)))
+    for _ in range(16 * num_files):
+        if not available_positions:
+            break
+        index = secrets.randbelow(len(available_positions))
+        position = available_positions.pop(index)
+        key_positions.append(position)
+    key_positions.sort()
+    
+    output_file = os.path.join(directory, f'{datetime.now().strftime("%M%Y%m%d%H%M%S")}.dir')
     with open(output_file, 'wb') as f:
-        f.write(key)
-        f.write(len(file_info).to_bytes(4, 'big'))
+        f.write(num_files.to_bytes(4, 'big'))
         for path, size in file_info:
             f.write(len(path).to_bytes(2, 'big'))
             f.write(path.encode())
             f.write(size.to_bytes(8, 'big'))
         
-        encrypted_data = bytes(b ^ key[i % len(key)] for i, b in enumerate(encrypted_data))
-        f.write(encrypted_data)
+        encrypted_data = bytearray(encrypted_data)
+        for i, pos in enumerate(key_positions):
+            encrypted_data.insert(pos, key[i])
+        
+        f.write(bytes(encrypted_data))
     
-    return key.hex()
+    return f"{num_files} {key.hex()} {' '.join(map(str, key_positions))}"
 
 root = tk.Tk()
 root.withdraw()
@@ -39,5 +52,5 @@ root.withdraw()
 directory = filedialog.askdirectory()
 
 if directory:
-    key = encrypt_files(directory)
-    print(key)
+    key_info = encrypt_files(directory)
+    print(key_info)
